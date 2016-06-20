@@ -9,17 +9,18 @@
 	<script src="js/scriptArticles.js"></script>
 </head>
 <body onLoad="atStart();">
-
+<div id="nameArticles" data="<% $nameArticles %>" style="display:none"></div>
+<!-- Get article names -->
 <div class="header"></div>
 <div class="container">
 
 <!-- List of articles to edit -->
 	<div class="row">
-		<div id="idArticlesContainer" class="col-xs-offset-3 col-xs-6">
+		<div id="idArticlesContainer" class="col-xs-offset-3 col-xs-7">
 			<!-- This will be filled with javascript -->
 		</div>
-		<div class="col-xs-3">
-			<button type="button" class="btn btn-info" onclick="addRowArticle();">+</button>
+		<div class="col-xs-2">
+			<button type="button" class="btn btn-info" onclick="addRowArticle(globalNameArticles);">+</button>
 		</div>
 	</div>
 
@@ -74,53 +75,53 @@
 						<p>FECHA: <% $now %></p>
 					</div>
 				</div>
-			<!-- Detail -->
-			<div class="row">
-				<div class="col-xs-12">
-					<center><p>DETALLE DE LA COMPRA</p></center>
+			<!-- Title Detail of buy -->
+				<div class="row">
+					<div class="col-xs-12">
+						<center><p>DETALLE DE LA COMPRA</p></center>
+					</div>
+					<div class="col-xs-12">
+						<hr width=100%>
+					</div>
+					<div class="col-xs-4">
+						<p>DESCRIPCIÓN DEL ARTÍCULO</p>
+					</div>
+					<div class="col-xs-2">
+						<p>MODELO</p>
+					</div>
+					<div class="col-xs-2">
+						<p>CANTIDAD</p>
+					</div>
+					<div class="col-xs-2">
+						<p>P.U.</p>
+					</div>
+					<div class="col-xs-2">
+						<p>SUBTOTAL</p>
+					</div>
+					<div class="col-xs-12">
+						<hr width=100%>
+					</div>
 				</div>
-				<div class="col-xs-12">
-					<hr width=100%>
-				</div>
-				<div class="col-xs-4">
-					<p>DESCRIPCIÓN DEL ARTÍCULO</p>
-				</div>
-				<div class="col-xs-2">
-					<p>MODELO</p>
-				</div>
-				<div class="col-xs-2">
-					<p>CANTIDAD</p>
-				</div>
-				<div class="col-xs-2">
-					<p>P.U.</p>
-				</div>
-				<div class="col-xs-2">
-					<p>SUBTOTAL</p>
-				</div>
-				<div class="col-xs-12">
-					<hr width=100%>
-				</div>
-			</div>
-		<!-- Article list -->
-		@for ($i = 0; $i < $nElements; $i++)
-			<div class="row">
-				<div class="col-xs-4">
-					<p><% $articleDetail[$i] %></p>
-				</div>
-				<div class="col-xs-2">
-					<p><% $model[$i] %></p>
-				</div>
-				<div class="col-xs-2">
-					<p><% $amount[$i] %></p>
-				</div>
-				<div class="col-xs-2">
-					<p><% $pu[$i] %></p>
-				</div>
-				<div class="col-xs-2">
-					<p><% $subtotal[$i] %></p>
-				</div>
-			</div>	
-		@endfor
+			<!-- Article list -->
+				@for ($i = 0; $i < $nElements; $i++)
+					<div class="row">
+						<div class="col-xs-4">
+							<p><% $articleDetail[$i] %></p>
+						</div>
+						<div class="col-xs-2">
+							<p><% $model[$i] %></p>
+						</div>
+						<div class="col-xs-2">
+							<p><% $amount[$i] %></p>
+						</div>
+						<div class="col-xs-2">
+							<p><% $pu[$i] %></p>
+						</div>
+						<div class="col-xs-2">
+							<p><% $subtotal[$i] %></p>
+						</div>
+					</div>	
+				@endfor
 		
 		<!-- Summary -->
 		<div class="row">
@@ -146,27 +147,29 @@
 			</div>
 		</div>
 
+	<!-- Details of payments -->
+		@if ($showDetailsPayments)
 		<!-- Money in words -->
-		<div class="row">
-			<div class="col-xs-12">
-				<p>SON: (<% $totalInWords %>)</p>
+			<div class="row">
+				<div class="col-xs-12">
+					<p>SON: (<% $totalInWords %>)</p>
+				</div>
 			</div>
-		</div>
 
 		<!-- Monthly payments -->
-		<div class="row">
-			<div class="col-xs-12">
-				<p>ABONOS MENSUALES:</p>
-			</div>
-
-			@for ($i = 0; $i < 4; $i++)
+			<div class="row">
 				<div class="col-xs-12">
-					<p><% $mounthBy[$i] %> ABONOS DE $ <% $payBy[$i] %> TOTAL A PAGAR $ <% $totalBy[$i] %> SE AHORRA $ <% $bonusBy[$i] %></p>
+					<p>ABONOS MENSUALES:</p>
 				</div>
-			@endfor
-			
-		</div>
 
+				@for ($i = 0; $i < 4; $i++)
+					<div class="col-xs-12">
+						<p><% $mounthBy[$i] %> ABONOS DE $ <% $payBy[$i] %> TOTAL A PAGAR $ <% $totalBy[$i] %> SE AHORRA $ <% $bonusBy[$i] %></p>
+					</div>
+				@endfor
+				
+			</div>
+		@endif
 	</div> <!-- /ng-app -->
 </div><!-- /container -->
 </body>
