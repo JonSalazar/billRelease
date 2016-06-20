@@ -21,3 +21,7 @@ body {
 	border-width: 4px;
 	border-color: #111111;
 }
+.txtfield {
+	color: black;
+	width: 100%;
+}

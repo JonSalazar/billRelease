@@ -11,6 +11,9 @@ class FrontController extends Controller
     public function index() {
     	$ans = Article::find();
     	//return "resultado = ".$ans;
-    	return view('index');
+    	return view('index', [
+    		'now'	=>	'20/06/2016',
+    		'folio'	=>	'000000001'
+    		]);
     }
 }

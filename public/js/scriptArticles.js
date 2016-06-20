@@ -1,3 +1,7 @@
+var atStart = function() {
+    addRowArticle();
+}
+
 var addRowArticle = function() {
 	var con = document.getElementById('idArticlesContainer');
 	var row = document.createElement('div');

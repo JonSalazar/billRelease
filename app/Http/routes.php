@@ -11,6 +11,13 @@
 |
 */
 
+
+/** Change the blade tags
+*	this is for we can use angular {{}} in blade.php
+**/
+Blade::setContentTags('<%', '%>');
+Blade::setEscapedContentTags('<%%', '%%>');
+
 Route::get(		'/',			'FrontController@index');
 Route::resource('article',		'ArticleController');
 
