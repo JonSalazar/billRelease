@@ -6,9 +6,15 @@
 	<link rel="stylesheet" type="text/css" href="css/mystyle.css">
 </head>
 <body>
+
 <div class="header"></div>
-<div class="content"></div>
-***** MAIN!! ***** <p>
-@yield('content')
+<div class="container">
+		<div class="row">
+			<div class="col-xs-push-3 col-xs-6">
+				@yield('content')
+			</div>
+		</div>
+</div>
+
 </body>
 </html>

@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-	especialidad de index
+<select class="form-control">
+	<option value="" disabled selected>Selecione un artículo</option>
+</select>
 @stop
