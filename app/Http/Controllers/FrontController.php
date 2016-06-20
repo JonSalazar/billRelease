@@ -12,8 +12,22 @@ class FrontController extends Controller
     	$ans = Article::find();
     	//return "resultado = ".$ans;
     	return view('index', [
-    		'now'	=>	'20/06/2016',
-    		'folio'	=>	'000000001'
+    		'now'			=>	'20/06/2016',
+    		'folio'			=>	'000000001',
+    		'nElements'		=>	3,
+    		'articleDetail'	=>	['one','two','true'],
+    		'model'			=>	['onex','twox','truex'],
+    		'amount'		=>	['oney','twoy','truey'],
+    		'pu'			=>	['onez','twoz','truez'],
+    		'subtotal'		=>	['oner','twor','truer'],
+    		'deposit'		=>	'5000.00',
+    		'bonusDeposit'	=>	'1344.31',
+    		'totalDebt'		=>	'4105.34',
+    		'totalInWords'	=>	'CIENTO CUARENTA Y OCHO 24/100 M.N.',
+    		'payBy'			=>	[1,2,3,4],
+    		'totalBy'		=>	[5,6,7,8],
+    		'bonusBy'		=>	[9,10,11,12],
+    		'mounthBy'		=>	[3,6,9,12]
     		]);
     }
 }

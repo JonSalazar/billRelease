@@ -53,7 +53,7 @@
 				<input class="txtfield" type="text" ng-model="ngrfc" />
 			</div>
 		</div>
-	<!-- Bill -->	
+<!-- Bill -->	
 		<div class="row">
 			<div class="billContainer col-xs-offset-1 col-xs-10">
 			<!-- Name | Folio -->
@@ -62,7 +62,7 @@
 						<p>CLIENTE: {{ ngname }}</p>
 					</div>
 					<div class="col-xs-offset-1 col-xs-2">
-						<label>FOLIO: <% $folio %></label>
+						<p>FOLIO: <% $folio %></p>
 					</div>
 				</div>
 			<!-- Address | RFC | Date -->
@@ -71,7 +71,7 @@
 						<p>{{ ngaddress }} RFC: {{ ngrfc }}</p>
 					</div>
 					<div class="col-xs-offset-1 col-xs-2">
-						<label>FECHA: <% $now %></label>
+						<p>FECHA: <% $now %></p>
 					</div>
 				</div>
 			<!-- Detail -->
@@ -82,29 +82,92 @@
 				<div class="col-xs-12">
 					<hr width=100%>
 				</div>
-				
+				<div class="col-xs-4">
+					<p>DESCRIPCIÓN DEL ARTÍCULO</p>
+				</div>
+				<div class="col-xs-2">
+					<p>MODELO</p>
+				</div>
+				<div class="col-xs-2">
+					<p>CANTIDAD</p>
+				</div>
+				<div class="col-xs-2">
+					<p>P.U.</p>
+				</div>
+				<div class="col-xs-2">
+					<p>SUBTOTAL</p>
+				</div>
+				<div class="col-xs-12">
+					<hr width=100%>
+				</div>
 			</div>
-						
-				DESCRIPCIÓN 			MODELO 		CANTIDAD 		P.U. 			SUBTOTAL
-				DEL ARTICULO
-				--------------------------------------------------------------------------------------
-				SALA COMEDOR 			T345 		1 				5,678.00 		5,678.00
-				
-														Enganche: 1,135.60
-														Bonificación del enganche: 381.56
-														Total de Adeudo: 4,160.84
-				
-				SON: (CUATRO MIL CIENTO SESENTA PESOS 84/100 M.N)
-				
-				ABONOS MENSUALES:
-				3 ABONOS DE $ 1,125.33 TOTAL A PAGAR $ 3,376.00 SE AHORRA $ 784.84
-				6 ABONOS DE $ 606.27 TOTAL A PAGAR $ 3,637.60 SE AHORRA $ 523.24
-				9 ABONOS DE $ 433.24 TOTAL A PAGAR $ 3,899.20 SE AHORRA $ 261.64
-				12 ABONOS DE $ 346.74 TOTAL A PAGAR $ 4,160.84 SE AHORRA $ 0.0
+		<!-- Article list -->
+		@for ($i = 0; $i < $nElements; $i++)
+			<div class="row">
+				<div class="col-xs-4">
+					<p><% $articleDetail[$i] %></p>
+				</div>
+				<div class="col-xs-2">
+					<p><% $model[$i] %></p>
+				</div>
+				<div class="col-xs-2">
+					<p><% $amount[$i] %></p>
+				</div>
+				<div class="col-xs-2">
+					<p><% $pu[$i] %></p>
+				</div>
+				<div class="col-xs-2">
+					<p><% $subtotal[$i] %></p>
+				</div>
+			</div>	
+		@endfor
+		
+		<!-- Summary -->
+		<div class="row">
+			<div class="col-xs-offset-4 col-xs-4" align="right">
+				<p>Enganche: </p>
+			</div>
+			<div class="col-xs-4" align="left">
+				<p><% $deposit %></p>
+			</div>
 
+			<div class="col-xs-offset-4 col-xs-4" align="right">
+				<p>Bonificación del enganche: </p>
+			</div>
+			<div class="col-xs-4" align="left">
+				<p><% $bonusDeposit %></p>
+			</div>
+
+			<div class="col-xs-offset-4 col-xs-4" align="right">
+				<p>Total de Adeudo: </p>
+			</div>
+			<div class="col-xs-4" align="left">
+				<p><% $totalDebt %></p>
 			</div>
 		</div>
-	</div>
-</div>
+
+		<!-- Money in words -->
+		<div class="row">
+			<div class="col-xs-12">
+				<p>SON: (<% $totalInWords %>)</p>
+			</div>
+		</div>
+
+		<!-- Monthly payments -->
+		<div class="row">
+			<div class="col-xs-12">
+				<p>ABONOS MENSUALES:</p>
+			</div>
+
+			@for ($i = 0; $i < 4; $i++)
+				<div class="col-xs-12">
+					<p><% $mounthBy[$i] %> ABONOS DE $ <% $payBy[$i] %> TOTAL A PAGAR $ <% $totalBy[$i] %> SE AHORRA $ <% $bonusBy[$i] %></p>
+				</div>
+			@endfor
+			
+		</div>
+
+	</div> <!-- /ng-app -->
+</div><!-- /container -->
 </body>
 </html>
