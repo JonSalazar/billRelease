@@ -11,11 +11,14 @@
 |
 */
 
+Route::get(		'/',		'FrontController@index');
+Route::resource('article',	'ArticleController');
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('nombre/{name?}/{ak?}', function($n = '30', $x = 'no') {
+
+/*Rute::get('nombre/{name?}/{ak?}', function($n = '30', $x = 'no') {
 	return 'hallo? '.$n.' '.$x;
 });
+
+Route::get('index/{v}','BillController@index');*/
+
