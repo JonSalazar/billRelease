@@ -11,8 +11,8 @@
 |
 */
 
-Route::get(		'/',		'FrontController@index');
-Route::resource('article',	'ArticleController');
+Route::get(		'/',			'FrontController@index');
+Route::resource('article',		'ArticleController');
 
 
 

@@ -2,7 +2,6 @@ body {
 	background-color: #505050;
 	color: #CCCCCC;
 }
-
 .header {
     height:100px;
     background:#0F0F0F;
@@ -13,8 +12,12 @@ body {
 .container {
 	margin-top: 120px;
 }
-
 .form-control {
 	width: 100%;
-	align-content: center;
+	margin-bottom: 4px;
+}
+.billContainer {
+	border-style: solid;
+	border-width: 4px;
+	border-color: #111111;
 }
