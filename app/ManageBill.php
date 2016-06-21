@@ -11,14 +11,14 @@ class ManageBill extends Model
 		$amounts = array();
 		for ($i = 0; $i < count($listIdItem); $i++)
 		{
-			$key = $listIdItem[$i];
-			if (empty($amounts[$key]))
+			$item = $listIdItem[$i];
+			if (empty($amounts[$item]))
 			{
-				$amounts[$key] = 0;
+				$amounts[$item] = 0;
 			}
 			
-			$plusOne = $amounts[$key] + 1;
-			$newAmounts = array($key => $plusOne);
+			$plusOne = $amounts[$item] + 1;
+			$newAmounts = array($item => $plusOne);
 			$amounts = array_replace($amounts, $newAmounts);
 		}
 
@@ -32,18 +32,37 @@ class ManageBill extends Model
 			'amount'		=> array(),
 			'pu'			=> array(),
 			'subtotal'		=> array()
-			);
+		);
 		foreach ($amounts as $idItem => $amount)
 		{
-			array_push($detailPayment['description'], $itemsTable[$idItem]->description);
-			array_push($detailPayment['model'], $itemsTable[$idItem]->model);
-			array_push($detailPayment['amount'], $amount);
-			array_push($detailPayment['pu'], $itemsTable[$idItem]->pu);
+			$item = ManageCbDatabase::getTableXById('items', $idItem);
 
-			$subtotal = $itemsTable[$idItem]->pu * $amount;
-			array_push($detailPayment['subtotal'], $subtotal);
+			array_push($detailPayment['description'], $item->description);
+			array_push($detailPayment['model'], $item->model);
+			array_push($detailPayment['amount'], $amount);
+
+			$pu = $item->pu;
+			$pu += ManageBill::getInteresetInMonths($pu, 2.8, 12);
+			$puString = (string)ManageBill::formatDecimalN($pu, 2);
+			array_push($detailPayment['pu'], $puString);
+
+			$subtotal = $pu * $amount;
+			$subtotalString = (string)ManageBill::formatDecimalN($subtotal, 2);
+			array_push($detailPayment['subtotal'], $subtotalString);
 		}
 
 		return $detailPayment;
+	}
+
+	private static function formatDecimalN($number, $nDecimal) {
+		return number_format((float)$number, $nDecimal, '.', '');
+	}
+
+	private static function getPorcent($number, $porcent) {
+		return (float)$number * ($porcent / 100.0);
+	}
+
+	private static function getInteresetInMonths($number, $porcent, $months) {
+		return ManageBill::getPorcent($number, $porcent) * $months;
 	}
 }

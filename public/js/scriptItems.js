@@ -98,10 +98,12 @@ var addRowItem = function(nameItems_list) {
 	comboItem.appendChild(option);
 
 	//	add items descriptions
-	for (var i = 0; i < nameItems_list.length; i++) {
+	for (var i = 0; i < nameItems_list.length; i+=2) {
 		var option = document.createElement('option');
-		option.value = i;
-		option.text = nameItems_list[i];
+		// assign id item
+		option.value = nameItems_list[i];
+		// assign description item
+		option.text = nameItems_list[i + 1];
 		comboItem.appendChild(option);
 	}
 
