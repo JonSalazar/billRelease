@@ -18,14 +18,7 @@
 Blade::setContentTags('<%', '%>');
 Blade::setEscapedContentTags('<%%', '%%>');
 
+
 Route::get(		'/',			'FrontController@index');
-Route::resource('article',		'ArticleController');
-
-
-
-/*Rute::get('nombre/{name?}/{ak?}', function($n = '30', $x = 'no') {
-	return 'hallo? '.$n.' '.$x;
-});
-
-Route::get('index/{v}','BillController@index');*/
-
+// Asynchronous
+Route::get(		'billInfo',		'FrontController@billInfo');

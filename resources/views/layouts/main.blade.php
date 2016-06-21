@@ -6,21 +6,21 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 	<link rel="stylesheet" 	type="text/css" href="css/mystyle.css">
-	<script src="js/scriptArticles.js"></script>
+	<script src="js/scriptItems.js"></script>
 </head>
 <body onLoad="atStart();">
-<div id="nameArticles" data="<% $nameArticles %>" style="display:none"></div>
-<!-- Get article names -->
+<div id="nameItems" data="<% $nameItems %>" style="display:none"></div>
+<!-- Get item names -->
 <div class="header"></div>
 <div class="container">
 
-<!-- List of articles to edit -->
+<!-- List of items to edit -->
 	<div class="row">
-		<div id="idArticlesContainer" class="col-xs-offset-3 col-xs-7">
+		<div id="idItemsContainer" class="col-xs-offset-2 col-xs-8">
 			<!-- This will be filled with javascript -->
 		</div>
 		<div class="col-xs-2">
-			<button type="button" class="btn btn-info" onclick="addRowArticle(globalNameArticles);">+</button>
+			<button type="button" class="btn btn-info" onclick="addRowItem(globalNameItems);">+</button>
 		</div>
 	</div>
 
@@ -63,7 +63,7 @@
 						<p>CLIENTE: {{ ngname }}</p>
 					</div>
 					<div class="col-xs-offset-1 col-xs-2">
-						<p>FOLIO: <% $folio %></p>
+						<p>FOLIO: </p> <!--@@-->
 					</div>
 				</div>
 			<!-- Address | RFC | Date -->
@@ -72,7 +72,7 @@
 						<p>{{ ngaddress }} RFC: {{ ngrfc }}</p>
 					</div>
 					<div class="col-xs-offset-1 col-xs-2">
-						<p>FECHA: <% $now %></p>
+						<p>FECHA: </p><!--@@-->
 					</div>
 				</div>
 			<!-- Title Detail of buy -->
@@ -102,26 +102,6 @@
 						<hr width=100%>
 					</div>
 				</div>
-			<!-- Article list -->
-				@for ($i = 0; $i < $nElements; $i++)
-					<div class="row">
-						<div class="col-xs-4">
-							<p><% $articleDetail[$i] %></p>
-						</div>
-						<div class="col-xs-2">
-							<p><% $model[$i] %></p>
-						</div>
-						<div class="col-xs-2">
-							<p><% $amount[$i] %></p>
-						</div>
-						<div class="col-xs-2">
-							<p><% $pu[$i] %></p>
-						</div>
-						<div class="col-xs-2">
-							<p><% $subtotal[$i] %></p>
-						</div>
-					</div>	
-				@endfor
 		
 		<!-- Summary -->
 		<div class="row">
@@ -129,30 +109,30 @@
 				<p>Enganche: </p>
 			</div>
 			<div class="col-xs-4" align="left">
-				<p><% $deposit %></p>
+				<p></p><!--@@-->
 			</div>
 
 			<div class="col-xs-offset-4 col-xs-4" align="right">
 				<p>Bonificación del enganche: </p>
 			</div>
 			<div class="col-xs-4" align="left">
-				<p><% $bonusDeposit %></p>
+				<p></p><!--@@-->
 			</div>
 
 			<div class="col-xs-offset-4 col-xs-4" align="right">
 				<p>Total de Adeudo: </p>
 			</div>
 			<div class="col-xs-4" align="left">
-				<p><% $totalDebt %></p>
+				<p></p><!--@@-->
 			</div>
 		</div>
 
 	<!-- Details of payments -->
-		@if ($showDetailsPayments)
+		<div id="detailOfPayments" style="display:none">
 		<!-- Money in words -->
 			<div class="row">
 				<div class="col-xs-12">
-					<p>SON: (<% $totalInWords %>)</p>
+					<p>SON: </p><!--@@-->
 				</div>
 			</div>
 
@@ -161,15 +141,8 @@
 				<div class="col-xs-12">
 					<p>ABONOS MENSUALES:</p>
 				</div>
-
-				@for ($i = 0; $i < 4; $i++)
-					<div class="col-xs-12">
-						<p><% $mounthBy[$i] %> ABONOS DE $ <% $payBy[$i] %> TOTAL A PAGAR $ <% $totalBy[$i] %> SE AHORRA $ <% $bonusBy[$i] %></p>
-					</div>
-				@endfor
-				
 			</div>
-		@endif
+		</div>
 	</div> <!-- /ng-app -->
 </div><!-- /container -->
 </body>

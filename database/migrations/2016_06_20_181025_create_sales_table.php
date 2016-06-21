@@ -19,7 +19,7 @@ class CreateSalesTable extends Migration
             $table->integer('amount');
         });
         Schema::table('sales', function ($table) {
-            $table->foreign('idArticle')->references('id')->on('articles')->onDelete('cascade');
+            $table->foreign('idArticle')->references('id')->on('items')->onDelete('cascade');
             $table->foreign('folio')->references('folio')->on('bills')->onDelete('cascade');
         });
     }
