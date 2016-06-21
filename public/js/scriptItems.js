@@ -11,7 +11,10 @@ var itemComboOnChange = function() {
 	var selectedItems = {};
 	selectedItems.list = [];
 	for (var i = 0; i < totalAddedItems; i++) {
-		selectedItems.list.push($('#itemComboId' + i).val());
+		var v = $('#itemComboId' + i).val();
+		if (v === null)
+			continue;
+		selectedItems.list.push(v);
 	}
 
 	var callback = function(data) {
@@ -24,8 +27,15 @@ var itemComboOnChange = function() {
 			col.appendChild(p);
 			father.appendChild(col);
 		};
+		var removeChildrens = function(id) {
+			var myNode = document.getElementById(id);
+			while (myNode.firstChild) {
+			    myNode.removeChild(myNode.firstChild);
+			}
+		};
 		// build detailOfBuy
 		var detailOfBuy = document.getElementById('detailOfBuy');
+		removeChildrens('detailOfBuy');
 		for (var i = 0; i < data.description.length; i++) {
 			addElement(4, data.description[i], detailOfBuy);
 			addElement(2, data.model[i], detailOfBuy);
@@ -43,6 +53,7 @@ var itemComboOnChange = function() {
 		// build monthlyPayments
 		$('#detailOfPayments').attr('style','display:block');
 		var monthlyPayments = document.getElementById('monthlyPayments');
+		removeChildrens('monthlyPayments');
 		for (var i = 0; i < 4; i++) {
 			var col = document.createElement('div');
 			col.className = 'col-xs-12';

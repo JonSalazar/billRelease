@@ -120,22 +120,22 @@
 					<div class="col-xs-offset-4 col-xs-4" align="right">
 						<p>Enganche: </p>
 					</div>
-					<div class="col-xs-4" align="left">
-						<p id="idDeposit"></p>
+					<div class="col-xs-4">
+						<p id="idDeposit">0.00</p>
 					</div>
 
 					<div class="col-xs-offset-4 col-xs-4" align="right">
 						<p>Bonificación del enganche: </p>
 					</div>
-					<div class="col-xs-4" align="left">
-						<p id="idBonusDeposit"></p>
+					<div class="col-xs-4">
+						<p id="idBonusDeposit">0.00</p>
 					</div>
 
 					<div class="col-xs-offset-4 col-xs-4" align="right">
 						<p>Total de Adeudo: </p>
 					</div>
-					<div class="col-xs-4" align="left">
-						<p id="idTotalDept"></p>
+					<div class="col-xs-4">
+						<p id="idTotalDept">0.00</p>
 					</div>
 				</div>
 
@@ -152,10 +152,12 @@
 					</div>
 
 				<!-- Monthly payments -->
-					<div id="monthlyPayments" class="row">
+					<div class="row">
 						<div class="col-xs-12">
 							<p>ABONOS MENSUALES:</p>
 						</div>
+					</div>
+					<div id="monthlyPayments" class="row">
 						<!-- will be filled with javascript -->
 					</div>
 				</div>

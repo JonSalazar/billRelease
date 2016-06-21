@@ -18,5 +18,9 @@ class ManageCbDatabase extends Model
 		return substr($totalString, 0, -1);
 	}
 
-    
+    public static function getTableX($tableName) {
+    	$table = DB::select('SELECT * FROM items;');
+
+    	return $table;
+    }
 }
