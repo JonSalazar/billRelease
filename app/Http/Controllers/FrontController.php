@@ -15,7 +15,7 @@ class FrontController extends Controller
     }
 
     public function billInfo(Request $request) {
-        $detailPayment = ManageBill::getDetailPayment($request->list);
+        $detailPayment = ManageBill::getDetailPayment($request->list, $request->depositPorcent);
 
         $monthBy = ['3','6','9','12'];
         $depositBy = ['1','2','3','4'];
@@ -23,9 +23,9 @@ class FrontController extends Controller
         $bonusBy = ['9','10','11','12'];
         
         return response()->json([
-            'idDeposit'     =>  '500.0',
-            'idBonusDeposit'=>  '150.40',
-            'idTotalDept'   =>  '300.10',
+            'idDeposit'     =>  $detailPayment['deposit'],
+            'idBonusDeposit'=>  $detailPayment['bonusDeposit'],
+            'idTotalDebt'   =>  $detailPayment['totalDebt'],
             'idDeptInWords' =>  'DOS MIL TRECIENTOS 14/100 M.N',
             'description'   =>  $detailPayment['description'],
             'model'         =>  $detailPayment['model'],

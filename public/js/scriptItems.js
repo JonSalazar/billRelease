@@ -16,6 +16,8 @@ var itemComboOnChange = function() {
 			continue;
 		selectedItems.list.push(v);
 	}
+	var depositValue = $('#txtBoxDeposit').val();
+	selectedItems.depositPorcent = depositValue == '' ? 0.00 : depositValue;
 
 	var callback = function(data) {
 		var addElement = function(nCol, description, father) {
@@ -47,7 +49,7 @@ var itemComboOnChange = function() {
 		// set all info variables
 		$('#idDeposit').		text(data.idDeposit);
 		$('#idBonusDeposit').	text(data.idBonusDeposit);
-		$('#idTotalDept').		text(data.idTotalDept);
+		$('#idTotalDebt').		text(data.idTotalDebt);
 		$('#idDeptInWords').	text(data.idDeptInWords);
 
 		// build monthlyPayments
@@ -115,4 +117,28 @@ var addRowItem = function(nameItems_list) {
 	con.appendChild(row);
 
 	totalAddedItems++;
+};
+
+
+var isNumber = function(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+};
+
+var isPercent = function(evt, id) {
+	if (!isNumber(evt))
+		return false;
+
+	evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    var finalNumber = $(id).val() + '' + String.fromCharCode(charCode);
+    
+	if (finalNumber > 100)
+		return false;
+
+	return true;
 };

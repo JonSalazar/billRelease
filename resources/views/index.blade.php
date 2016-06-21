@@ -34,7 +34,7 @@
 				<p>Nombre del cliente: </p>
 			</div>
 			<div class="col-xs-8">
-				<input class="txtfield" type="text" ng-model="ngname" />
+				<input class="txtfield" type="text" ng-model="ngname" placeholder="ingrese su nombre" />
 			</div>
 		</div>
 	<!-- Client Address -->
@@ -43,16 +43,25 @@
 				<p>Dirección: </p>
 			</div>
 			<div class="col-xs-8">
-				<input class="txtfield" type="text" ng-model="ngaddress" />
+				<input class="txtfield" type="text" ng-model="ngaddress" placeholder="ingrese su dirección" />
 			</div>
 		</div>
-	<!-- Client RFC-->
+	<!-- Client RFC -->
 		<div class="row">
 			<div class="col-xs-2 col-xs-offset-1">
 				<p>RFC: </p>
 			</div>
 			<div class="col-xs-8">
-				<input class="txtfield" type="text" ng-model="ngrfc" />
+				<input class="txtfield" type="text" ng-model="ngrfc" placeholder="ingrese su RFC" />
+			</div>
+		</div>
+	<!-- Deposit -->
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-1">
+				<p>Enganche: </p>
+			</div>
+			<div class="col-xs-8">
+				<input id="txtBoxDeposit" class="txtfield" maxlength="3" type="text" value="20" onkeypress="return isPercent(event, '#txtBoxDeposit')" placeholder="se sugiere el 20%" />
 			</div>
 		</div>
 	<!-- Bill -->	
@@ -135,7 +144,7 @@
 						<p>Total de Adeudo: </p>
 					</div>
 					<div class="col-xs-4">
-						<p id="idTotalDept">0.00</p>
+						<p id="idTotalDebt">0.00</p>
 					</div>
 				</div>
 
