@@ -14,7 +14,6 @@
 <!-- Get item names -->
 <div class="header"></div>
 <div class="container">
-
 <!-- List of items to edit -->
 	<div class="row">
 		<div id="idItemsContainer" class="col-xs-offset-2 col-xs-8">
@@ -34,7 +33,7 @@
 				<p>Nombre del cliente: </p>
 			</div>
 			<div class="col-xs-8">
-				<input class="txtfield" type="text" ng-model="ngname" placeholder="ingrese su nombre" />
+				<input id="idName" class="txtfield" type="text" ng-model="ngname" placeholder="ingrese su nombre" />
 			</div>
 		</div>
 	<!-- Client Address -->
@@ -43,7 +42,7 @@
 				<p>Dirección: </p>
 			</div>
 			<div class="col-xs-8">
-				<input class="txtfield" type="text" ng-model="ngaddress" placeholder="ingrese su dirección" />
+				<input id="idAddress" class="txtfield" type="text" ng-model="ngaddress" placeholder="ingrese su dirección" />
 			</div>
 		</div>
 	<!-- Client RFC -->
@@ -52,13 +51,13 @@
 				<p>RFC: </p>
 			</div>
 			<div class="col-xs-8">
-				<input class="txtfield" type="text" ng-model="ngrfc" placeholder="ingrese su RFC" />
+				<input id="idRFC" class="txtfield" type="text" ng-model="ngrfc" placeholder="ingrese su RFC" />
 			</div>
 		</div>
 	<!-- Deposit -->
 		<div class="row">
 			<div class="col-xs-2 col-xs-offset-1">
-				<p>Enganche: </p>
+				<p>Enganche (%): </p>
 			</div>
 			<div class="col-xs-8">
 				<input id="txtBoxDeposit" class="txtfield" maxlength="3" type="text" value="20" onkeypress="return isPercent(event, '#txtBoxDeposit')" onchange="itemComboOnChange();" placeholder="se sugiere el 20%" />
@@ -170,7 +169,18 @@
 						<!-- will be filled with javascript -->
 					</div>
 				</div>
-			</div> <!-- /ng-app -->
+			</div> <!-- Bill container --> 
+		</div> <!-- row of Bill -->
+
+		<!-- button finalize -->
+		<p>
+		<div class="row">
+			<div class="col-xs-offset-10 col-xs-2">
+				<button type="button" class="btn btn-success" onclick="finalizeBill();">Finalizar</button>
+			</div>
+		</div>
+		<p>
+	</div> <!-- /ng-app -->
 </div><!-- /container -->
 </body>
 </html>

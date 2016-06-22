@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
  
 class ManageBill extends Model
 {
-	public static function getDetailPayment($listIdItem, $depositPorcent) {
+	public static function getDetailPayment($listIdItem) {
 		// get a list of (items => amounts)
 		$amounts = array();
 		for ($i = 0; $i < count($listIdItem); $i++)
@@ -27,6 +27,7 @@ class ManageBill extends Model
 
 		// get detailPayment
 		$detailPayment = array(
+			'id'			=> array(),
 			'description' 	=> array(),
 			'model'			=> array(),
 			'amount'		=> array(),
@@ -37,11 +38,12 @@ class ManageBill extends Model
 		$total = 0.00;
 		foreach ($amounts as $idItem => $amount)
 		{
-			$item = ManageCbDatabase::getTableXById('items', $idItem);
+			$item = ManageCbDatabase::getTableXById('items', 'id', $idItem);
 
-			array_push($detailPayment['description'], $item->description);
-			array_push($detailPayment['model'], $item->model);
-			array_push($detailPayment['amount'], $amount);
+			array_push($detailPayment['id'], 			$item->id);
+			array_push($detailPayment['description'], 	$item->description);
+			array_push($detailPayment['model'], 		$item->model);
+			array_push($detailPayment['amount'], 		$amount);
 
 			$puNeto = $item->pu;
 			$pu = $puNeto + self::getInteresetInMonths($puNeto, 2.8, 12);
@@ -54,12 +56,18 @@ class ManageBill extends Model
 
 			$total += $subtotal;
 		}
+		$detailPayment['total'] = $total;
 
-	// DEPOSIT
+		return $detailPayment;
+	}
+
+	public static function getBonusInfo($total, $depositPorcent) {
+		$detailPayment = array();
+		// DEPOSIT
 		$deposit = self::getPorcent($total, $depositPorcent);
 		$depositString = (string)self::formatDecimalN($deposit, 2);
 		$detailPayment['deposit'] = $depositString;
-	// BONUS DEPOSIT
+		// BONUS DEPOSIT
 		$totalNeto = self::getNetoValue($total, 2.8, 12);
 		$interest = $total - $totalNeto;
 		$totalWithDeposit = $totalNeto - $deposit;
@@ -78,7 +86,7 @@ class ManageBill extends Model
 		}
 		$bonusDepositString = (string)self::formatDecimalN($bonusDeposit, 2);
 		$detailPayment['bonusDeposit'] = $bonusDepositString;
-	// TOTAL DEBT
+		// TOTAL DEBT
 		$updateTotal = $totalWithDeposit + $updateInterest;
 		$updateTotalString = (string)self::formatDecimalN($updateTotal, 2);
 		$detailPayment['totalDebt'] = $updateTotalString;

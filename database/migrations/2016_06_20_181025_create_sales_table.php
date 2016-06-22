@@ -14,12 +14,12 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('idArticle');
+            $table->integer('idItem');
             $table->integer('folio');
             $table->integer('amount');
         });
         Schema::table('sales', function ($table) {
-            $table->foreign('idArticle')->references('id')->on('items')->onDelete('cascade');
+            $table->foreign('idItem')->references('id')->on('items')->onDelete('cascade');
             $table->foreign('folio')->references('folio')->on('bills')->onDelete('cascade');
         });
     }

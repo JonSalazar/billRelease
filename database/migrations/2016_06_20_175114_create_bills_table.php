@@ -14,7 +14,7 @@ class CreateBillsTable extends Migration
     {
         Schema::create('bills', function(Blueprint $table) {
             $table->increments('folio');
-            $table->dateTime('saleTime');
+            $table->date('saleTime');
         });
     }
 

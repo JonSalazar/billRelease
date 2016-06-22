@@ -22,8 +22,20 @@ class ManageCbDatabase extends Model
     	$table = DB::table($tableName)->get();
     	return $table;
     }
-    public static function getTableXById($tableName, $id) {
-    	$table = DB::table($tableName)->where('id', $id)->first();
+    public static function getTableXById($tableName, $idName, $idValue) {
+    	$table = DB::table($tableName)->where($idName, $idValue)->first();
     	return $table;
+    }
+    public static function insertNewBill() {
+    	$val 	= array('saleTime' => DB::raw('date(now())'));
+  	   	$folio 	= DB::table('bills')->insertGetId($val, 'folio');
+    	return $folio;
+    }
+    public static function insertNewSale($idItem, $folio, $amount) {
+    	DB::table('sales')->insert([
+    		'idItem'	=> $idItem,
+    		'folio'		=> $folio,
+    		'amount'	=> $amount
+    		]);
     }
 }

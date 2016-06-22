@@ -1,23 +1,20 @@
 var globalNameItems;
 var totalAddedItems;
+var someItemAdded;
 var atStart = function() {
 	globalNameItems = $('#nameItems').attr('data').split(',');
 	totalAddedItems = 0;
+	someItemAdded = false;
     addRowItem(globalNameItems);
 };
 
 var itemComboOnChange = function() {
 	// fill all 
 	var selectedItems = {};
-	selectedItems.list = [];
-	for (var i = 0; i < totalAddedItems; i++) {
-		var v = $('#itemComboId' + i).val();
-		if (v === null)
-			continue;
-		selectedItems.list.push(v);
-	}
+	selectedItems.list = getListItems(totalAddedItems);
+	
 	var depositValue = $('#txtBoxDeposit').val();
-	selectedItems.depositPorcent = depositValue == '' ? 0.00 : depositValue;
+	selectedItems.depositPercent = depositValue == '' ? 0.00 : depositValue;
 
 	var callback = function(data) {
 		var addElement = function(nCol, description, father) {
@@ -79,7 +76,7 @@ var itemComboOnChange = function() {
 		} else {
 			$('#detailOfPayments').attr('style','display:none');
 		}
-		
+		someItemAdded = true;
 	};
 
 	sendByAjax('billInfo', selectedItems, callback);
@@ -124,6 +121,16 @@ var addRowItem = function(nameItems_list) {
 	totalAddedItems++;
 };
 
+var getListItems = function(nItems) {
+	var ans = [];
+	for (var i = 0; i < nItems; i++) {
+		var v = $('#itemComboId' + i).val();
+		if (v === null)
+			continue;
+		ans.push(v);
+	}
+	return ans;
+};
 
 var isNumber = function(evt) {
     evt = (evt) ? evt : window.event;
@@ -146,4 +153,31 @@ var isPercent = function(evt, id) {
 		return false;
 
 	return true;
+};
+
+var finalizeBill = function() {
+	if (!someItemAdded) {
+		alert('No se puede finalizar la factura sin articulos');
+		return;
+	}
+	var req 	= {};
+	req.list 	= getListItems(totalAddedItems);
+	req.name 	= $('#idName').val();
+	req.address	= $('#idAddress').val();
+	req.rfc 	= $('#idRFC').val();
+	var callback = function(data) {
+		if (!data.success) {
+			var listErrors = 'No se finalizó por los siguientes errores: \n';
+			for (var i = 0; i < data.errors.length; i++) {
+				listErrors += data.errors[i] + '\n';
+			}
+			alert(listErrors);
+			return;
+		}
+
+		$('#idFolio').text(data.idFolio);
+		$('#idDate').text(data.idDate);
+	};
+
+	sendByAjax('billFinalize', req, callback);
 };

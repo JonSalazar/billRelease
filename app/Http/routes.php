@@ -22,3 +22,4 @@ Blade::setEscapedContentTags('<%%', '%%>');
 Route::get(		'/',			'FrontController@index');
 // Asynchronous
 Route::get(		'billInfo',		'FrontController@billInfo');
+Route::get(	'billFinalize',		'FrontController@billFinalize');

@@ -7,6 +7,8 @@ use App\Http\Requests;
 use App\ManageCbDatabase;
 use App\ManageBill;
 use App\ManageNumbers;
+use App\ManageSales;
+
 
 class FrontController extends Controller
 {
@@ -16,8 +18,9 @@ class FrontController extends Controller
     }
 
     public function billInfo(Request $request) {
-        $detailPayment  = ManageBill::getDetailPayment($request->list, $request->depositPorcent);
-        $totalDebt      = $detailPayment['totalDebt'];
+        $detailPayment  = ManageBill::getDetailPayment($request->list);
+        $bonusInfo      = ManageBill::getBonusInfo($detailPayment['total'], $request->depositPercent);
+        $totalDebt      = $bonusInfo['totalDebt'];
         
         $moneyInWords   = '';
         $monthBy        = [];
@@ -37,8 +40,8 @@ class FrontController extends Controller
         
         
         return response()->json([
-            'idDeposit'             =>  $detailPayment['deposit'],
-            'idBonusDeposit'        =>  $detailPayment['bonusDeposit'],
+            'idDeposit'             =>  $bonusInfo['deposit'],
+            'idBonusDeposit'        =>  $bonusInfo['bonusDeposit'],
             'idTotalDebt'           =>  $totalDebt,
             'idDebtInWords'         =>  $moneyInWords,
             'description'           =>  $detailPayment['description'],
@@ -52,5 +55,32 @@ class FrontController extends Controller
             'debtBy'                =>  $debtBy,
             'bonusBy'               =>  $bonusBy
             ]);
+    }
+
+    public function billFinalize(Request $request) {
+        $errors = array();
+        if ($request->name == '')
+            array_push($errors, 'El campo nombre esta vacio');
+        if ($request->address == '')
+            array_push($errors, 'El campo dirección esta vacio');
+        if ($request->rfc == '')
+            array_push($errors, 'El campo RFC esta vacio');
+        
+        if (count($errors) > 0) {
+            return response()->json([
+            'success'   => false,
+            'errors'    => $errors
+            ]);
+        }
+        
+
+        // no errors, make the bill
+        $detailPayment  = ManageBill::getDetailPayment($request->list);
+        $finalInfoBill  = ManageSales::finalizeBill($detailPayment['id'], $detailPayment['amount']);
+        return response()->json([
+        'success'   => true,
+        'idFolio'   => $finalInfoBill['idFolio'],
+        'idDate'    => $finalInfoBill['idDate']
+        ]);
     }
 }
