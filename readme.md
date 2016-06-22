@@ -1,27 +1,21 @@
-# Laravel PHP Framework
+PASOS PARA PONER EN MARCHA EL SISTEMA
+1 	- contar con la herramienta xamp
+2	- contar con herramienta composer
+3	- cargar las dependencias "composer install"
+4 	- reemplazar el archivo php.ini en la carpeta de instalación xamp ./php/ por el que se encuentra en la carpeta del proyecto ./phpini
+4 	- crear una base de datos 'cbdatabase' en postgres
+4 	- en la carpeta del proyecto ./.env colocar usuario y contraseña de la base de datos utilizar para generar las tablas necesarias en la base de datos
+5 	- utilizar en linea de comandos 'php artisan migrate'
+6 	- insertar artículos a la tabla 'items' de la base de datos
+ejemplo:
+	INSERT INTO items("description","model","pu") VALUES('TAZA', 'APPLE', 40.00);
+	INSERT INTO items("description","model","pu") VALUES('MESA', 'TOSHIBA', 360.00);
+	INSERT INTO items("description","model","pu") VALUES('CAMA', 'SONY', 1024.60);
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+7 	- utilizar en linea de comandos 'php artisan serve'
+8 	- ingresar a localhost:8000
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
-
-## Official Documentation
-
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+ROLLBACK A MIGRACIÓN
+en caso de errores al eliminar la migración realizada utilizar comando 'composer dump-autoload'
+después continuar con normalidad 'php artisan migrate:rollback'
