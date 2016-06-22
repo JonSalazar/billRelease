@@ -8,12 +8,12 @@ use DB;
 class ManageCbDatabase extends Model
 {
 	public static function getListArticleNames() {
-		$descriptionItems = DB::select('SELECT id, description AS value FROM items;');
+		$descriptionItems = DB::table('items')->select('id','description')->get();
 
 		$totalString = '';
 		foreach ($descriptionItems as $descriptionItem) 
 		{
-			$totalString .= $descriptionItem->id.','.$descriptionItem->value.',';
+			$totalString .= $descriptionItem->id.','.$descriptionItem->description.',';
 		}
 		return substr($totalString, 0, -1);
 	}
