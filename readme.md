@@ -5,13 +5,8 @@ PASOS PARA PONER EN MARCHA EL SISTEMA
 4 	- reemplazar el archivo php.ini en la carpeta de instalación xamp ./php/ por el que se encuentra en la carpeta del proyecto ./phpini
 4 	- crear una base de datos 'cbdatabase' en postgres
 4 	- en la carpeta del proyecto ./.env colocar usuario y contraseña de la base de datos utilizar para generar las tablas necesarias en la base de datos
-5 	- utilizar en linea de comandos 'php artisan migrate'
-6 	- insertar artículos a la tabla 'items' de la base de datos
-ejemplo:
-	INSERT INTO items("description","model","pu") VALUES('TAZA', 'APPLE', 40.00);
-	INSERT INTO items("description","model","pu") VALUES('MESA', 'TOSHIBA', 360.00);
-	INSERT INTO items("description","model","pu") VALUES('CAMA', 'SONY', 1024.60);
-
+5 	- utilizar en linea de comandos 'php artisan migrate' para generar las tablas en la base de datos
+6 	- utilizar en linea de comandos 'php artisan db:seed' para ingresar los datos pertinentes en la base de datos
 7 	- utilizar en linea de comandos 'php artisan serve'
 8 	- ingresar a localhost:8000
 
