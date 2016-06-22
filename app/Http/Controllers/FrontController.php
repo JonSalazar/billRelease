@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\ManageCbDatabase;
 use App\ManageBill;
+use App\ManageNumbers;
 
 class FrontController extends Controller
 {
@@ -15,7 +16,9 @@ class FrontController extends Controller
     }
 
     public function billInfo(Request $request) {
-        $detailPayment = ManageBill::getDetailPayment($request->list, $request->depositPorcent);
+        $detailPayment  = ManageBill::getDetailPayment($request->list, $request->depositPorcent);
+        $totalDebt      = $detailPayment['totalDebt'];
+        $moneyInWords   = ManageNumbers::getMoneyByWords($totalDebt);
 
         $monthBy = ['3','6','9','12'];
         $depositBy = ['1','2','3','4'];
@@ -25,8 +28,8 @@ class FrontController extends Controller
         return response()->json([
             'idDeposit'     =>  $detailPayment['deposit'],
             'idBonusDeposit'=>  $detailPayment['bonusDeposit'],
-            'idTotalDebt'   =>  $detailPayment['totalDebt'],
-            'idDeptInWords' =>  'DOS MIL TRECIENTOS 14/100 M.N',
+            'idTotalDebt'   =>  $totalDebt,
+            'idDeptInWords' =>  $moneyInWords,
             'description'   =>  $detailPayment['description'],
             'model'         =>  $detailPayment['model'],
             'amount'        =>  $detailPayment['amount'],

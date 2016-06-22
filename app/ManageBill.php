@@ -44,23 +44,23 @@ class ManageBill extends Model
 			array_push($detailPayment['amount'], $amount);
 
 			$puNeto = $item->pu;
-			$pu = $puNeto + ManageBill::getInteresetInMonths($puNeto, 2.8, 12);
-			$puString = (string)ManageBill::formatDecimalN($pu, 2);
+			$pu = $puNeto + self::getInteresetInMonths($puNeto, 2.8, 12);
+			$puString = (string)self::formatDecimalN($pu, 2);
 			array_push($detailPayment['pu'], $puString);
 
 			$subtotal = $pu * $amount;
-			$subtotalString = (string)ManageBill::formatDecimalN($subtotal, 2);
+			$subtotalString = (string)self::formatDecimalN($subtotal, 2);
 			array_push($detailPayment['subtotal'], $subtotalString);
 
 			$total += $subtotal;
 		}
 
 	// DEPOSIT
-		$deposit = ManageBill::getPorcent($total, $depositPorcent);
-		$depositString = (string)ManageBill::formatDecimalN($deposit, 2);
+		$deposit = self::getPorcent($total, $depositPorcent);
+		$depositString = (string)self::formatDecimalN($deposit, 2);
 		$detailPayment['deposit'] = $depositString;
 	// BONUS DEPOSIT
-		$totalNeto = ManageBill::getNetoValue($total, 2.8, 12);
+		$totalNeto = self::getNetoValue($total, 2.8, 12);
 		$interest = $total - $totalNeto;
 		$totalWithDeposit = $totalNeto - $deposit;
 		
@@ -69,19 +69,18 @@ class ManageBill extends Model
 		// if settle the account
 		if ($totalWithDeposit < 0)
 		{
-			$totalWithDeposit = 0;
 			$bonusDeposit = $interest;
 		}
 		else // else still it need to pay
 		{
-			$updateInterest = ManageBill::getInteresetInMonths($totalWithDeposit, 2.8, 12);
+			$updateInterest = self::getInteresetInMonths($totalWithDeposit, 2.8, 12);
 			$bonusDeposit = $interest - $updateInterest;
 		}
-		$bonusDepositString = (string)ManageBill::formatDecimalN($bonusDeposit, 2);
+		$bonusDepositString = (string)self::formatDecimalN($bonusDeposit, 2);
 		$detailPayment['bonusDeposit'] = $bonusDepositString;
 	// TOTAL DEBT
 		$updateTotal = $totalWithDeposit + $updateInterest;
-		$updateTotalString = (string)ManageBill::formatDecimalN($updateTotal, 2);
+		$updateTotalString = (string)self::formatDecimalN($updateTotal, 2);
 		$detailPayment['totalDebt'] = $updateTotalString;
 
 		return $detailPayment;
@@ -96,7 +95,7 @@ class ManageBill extends Model
 	}
 
 	private static function getInteresetInMonths($number, $porcent, $months) {
-		return ManageBill::getPorcent($number, $porcent) * $months;
+		return self::getPorcent($number, $porcent) * $months;
 	}
 
 	private static function getNetoValue($total, $porcentInterest, $months) {
