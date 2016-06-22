@@ -101,4 +101,41 @@ class ManageBill extends Model
 	private static function getNetoValue($total, $porcentInterest, $months) {
 		return $total / (1.0 + ($porcentInterest / 100.0) * $months);
 	}
+
+
+	// For Month payments
+	public static function getMonthlyPaymentsGroup($total, $months) {
+		$group = array(
+			'monthBy'	=> array(),
+			'depositBy'	=> array(),
+			'debtBy'	=> array(),
+			'bonusBy'	=> array()
+			);
+		for ($i = 0; $i < count($months); $i++)
+		{
+			$monthlyPayments = self::getMonthlyPayments($total, $months[$i]);
+			array_push($group['monthBy'],	$monthlyPayments[0]);
+			array_push($group['depositBy'],	$monthlyPayments[1]);
+			array_push($group['debtBy'],	$monthlyPayments[2]);
+			array_push($group['bonusBy'],	$monthlyPayments[3]);
+		}
+		return $group;
+	}
+
+	public static function getMonthlyPayments($total, $nMonths) {
+		$totalNeto = self::getNetoValue($total, 2.8, 12);
+		$updateInterest = self::getInteresetInMonths($totalNeto, 2.8, $nMonths);
+		$updateTotal = $totalNeto + $updateInterest;
+
+		$parcialPayment = $updateTotal / $nMonths;
+
+		$interest = $total - $totalNeto;
+		$bonus = $interest - $updateInterest;
+		$bonus = $bonus < 0.00 ? 0.00 : $bonus;
+
+		$parcialPaymentString	= (string)self::formatDecimalN($parcialPayment, 2);
+		$updateTotalString 		= (string)self::formatDecimalN($updateTotal, 2);
+		$bonusString 			= (string)self::formatDecimalN($bonus, 2);
+		return array($nMonths, $parcialPaymentString, $updateTotalString, $bonusString);
+	}
 }

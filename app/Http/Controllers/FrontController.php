@@ -20,10 +20,11 @@ class FrontController extends Controller
         $totalDebt      = $detailPayment['totalDebt'];
         $moneyInWords   = ManageNumbers::getMoneyByWords($totalDebt);
 
-        $monthBy = ['3','6','9','12'];
-        $depositBy = ['1','2','3','4'];
-        $debtBy = ['5','6','7','8'];
-        $bonusBy = ['9','10','11','12'];
+        $groupMonthlyPayments = ManageBill::getMonthlyPaymentsGroup($totalDebt, array(3,6,9,12));
+        $monthBy        = $groupMonthlyPayments['monthBy'];
+        $depositBy      = $groupMonthlyPayments['depositBy'];
+        $debtBy         = $groupMonthlyPayments['debtBy'];
+        $bonusBy        = $groupMonthlyPayments['bonusBy'];
         
         return response()->json([
             'idDeposit'     =>  $detailPayment['deposit'],
