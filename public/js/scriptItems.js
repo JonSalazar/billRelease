@@ -50,31 +50,36 @@ var itemComboOnChange = function() {
 		$('#idDeposit').		text(data.idDeposit);
 		$('#idBonusDeposit').	text(data.idBonusDeposit);
 		$('#idTotalDebt').		text(data.idTotalDebt);
-		$('#idDeptInWords').	text(data.idDeptInWords);
+		$('#idDebtInWords').	text(data.idDebtInWords);
 
 		// build monthlyPayments
-		$('#detailOfPayments').attr('style','display:block');
-		var monthlyPayments = document.getElementById('monthlyPayments');
-		removeChildrens('monthlyPayments');
-		for (var i = 0; i < 4; i++) {
-			var col = document.createElement('div');
-			col.className = 'col-xs-12';
-			var p = document.createElement('p');
+		if (data.showMonthlyPayments) {
+			$('#detailOfPayments').attr('style','display:block');
+			var monthlyPayments = document.getElementById('monthlyPayments');
+			removeChildrens('monthlyPayments');
+			for (var i = 0; i < 4; i++) {
+				var col = document.createElement('div');
+				col.className = 'col-xs-12';
+				var p = document.createElement('p');
 
-			var completeText =
-			data.monthBy[i] +
-			' ABONOS DE $ ' + 
-			data.depositBy[i] +
-			' TOTAL A PAGAR $ '+
-			data.debtBy[i] + 
-			' SE AHORRA $ ' +
-			data.bonusBy[i];
+				var completeText =
+				data.monthBy[i] +
+				' ABONOS DE $ ' + 
+				data.depositBy[i] +
+				' TOTAL A PAGAR $ '+
+				data.debtBy[i] + 
+				' SE AHORRA $ ' +
+				data.bonusBy[i];
 
-			var node = document.createTextNode(completeText);
-			p.appendChild(node);
-			col.appendChild(p);
-			monthlyPayments.appendChild(col);
+				var node = document.createTextNode(completeText);
+				p.appendChild(node);
+				col.appendChild(p);
+				monthlyPayments.appendChild(col);
+			}
+		} else {
+			$('#detailOfPayments').attr('style','display:none');
 		}
+		
 	};
 
 	sendByAjax('billInfo', selectedItems, callback);

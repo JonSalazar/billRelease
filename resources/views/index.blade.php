@@ -61,7 +61,7 @@
 				<p>Enganche: </p>
 			</div>
 			<div class="col-xs-8">
-				<input id="txtBoxDeposit" class="txtfield" maxlength="3" type="text" value="20" onkeypress="return isPercent(event, '#txtBoxDeposit')" placeholder="se sugiere el 20%" />
+				<input id="txtBoxDeposit" class="txtfield" maxlength="3" type="text" value="20" onkeypress="return isPercent(event, '#txtBoxDeposit')" onchange="itemComboOnChange();" placeholder="se sugiere el 20%" />
 			</div>
 		</div>
 	<!-- Bill -->	
@@ -156,7 +156,7 @@
 							<p>SON: </p>
 						</div>
 						<div class="col-xs-11">
-							<p id="idDeptInWords"></p>
+							<p id="idDebtInWords"></p>
 						</div>
 					</div>
 
