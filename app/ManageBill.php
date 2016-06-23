@@ -94,22 +94,10 @@ class ManageBill extends Model
 		return $detailPayment;
 	}
 
-	private static function formatDecimalN($number, $nDecimal) {
-		return number_format((float)$number, $nDecimal, '.', '');
+	public static function valideteRFC($rfc) {
+    	$regex = '/^[A-Z]{4}([0-9]{2})(1[0-2]|0[1-9])([0-3][0-9])([ -]?)([A-Z0-9]{4})$/';
+    	return preg_match($regex, $rfc);
 	}
-
-	private static function getPorcent($number, $porcent) {
-		return (float)$number * ($porcent / 100.0);
-	}
-
-	private static function getInteresetInMonths($number, $porcent, $months) {
-		return self::getPorcent($number, $porcent) * $months;
-	}
-
-	private static function getNetoValue($total, $porcentInterest, $months) {
-		return $total / (1.0 + ($porcentInterest / 100.0) * $months);
-	}
-
 
 	// For Month payments
 	public static function getMonthlyPaymentsGroup($total, $months) {
@@ -145,5 +133,23 @@ class ManageBill extends Model
 		$updateTotalString 		= (string)self::formatDecimalN($updateTotal, 2);
 		$bonusString 			= (string)self::formatDecimalN($bonus, 2);
 		return array($nMonths, $parcialPaymentString, $updateTotalString, $bonusString);
+	}
+
+
+	// privates
+	private static function formatDecimalN($number, $nDecimal) {
+		return number_format((float)$number, $nDecimal, '.', '');
+	}
+
+	private static function getPorcent($number, $porcent) {
+		return (float)$number * ($porcent / 100.0);
+	}
+
+	private static function getInteresetInMonths($number, $porcent, $months) {
+		return self::getPorcent($number, $porcent) * $months;
+	}
+
+	private static function getNetoValue($total, $porcentInterest, $months) {
+		return $total / (1.0 + ($porcentInterest / 100.0) * $months);
 	}
 }

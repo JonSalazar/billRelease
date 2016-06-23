@@ -63,8 +63,9 @@ class FrontController extends Controller
             array_push($errors, 'El campo nombre esta vacio');
         if ($request->address == '')
             array_push($errors, 'El campo dirección esta vacio');
-        if ($request->rfc == '')
-            array_push($errors, 'El campo RFC esta vacio');
+        $validRfc = ManageBill::valideteRFC($request->rfc);
+        if ( ! $validRfc)
+            array_push($errors, 'El campo RFC es inválido');
         
         if (count($errors) > 0) {
             return response()->json([
